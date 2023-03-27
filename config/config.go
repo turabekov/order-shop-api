@@ -1,6 +1,17 @@
 package config
 
+const (
+	// DebugMode indicates service mode is debug.
+	DebugMode = "debug"
+	// TestMode indicates service mode is test.
+	TestMode = "test"
+	// ReleaseMode indicates service mode is release.
+	ReleaseMode = "release"
+)
+
 type Config struct {
+	Environment string // debug, test, release
+
 	ServerHost string
 	ServerPort string
 
