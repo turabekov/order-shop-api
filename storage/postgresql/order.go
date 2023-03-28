@@ -374,7 +374,7 @@ func (r *orderRepo) Update(req *models.UpdateOrder) (int64, error) {
 	return rowsAffected, nil
 }
 
-// =PATCH============================================================
+// ==PATCH============================================================
 func (r *orderRepo) UpdatePatch(req *models.PatchRequest) (int64, error) {
 	var (
 		query string
@@ -401,7 +401,7 @@ func (r *orderRepo) UpdatePatch(req *models.PatchRequest) (int64, error) {
 
 	fmt.Println(req.Fields)
 	query, args := helper.ReplaceQueryParams(query, req.Fields)
-
+	fmt.Println(query)
 	result, err := r.db.Exec(query, args...)
 	if err != nil {
 		return 0, err

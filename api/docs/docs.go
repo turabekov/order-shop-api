@@ -1736,7 +1736,7 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "description": "Update Order",
+                "description": "Update Patch Order",
                 "consumes": [
                     "application/json"
                 ],
@@ -1746,8 +1746,8 @@ const docTemplate = `{
                 "tags": [
                     "Order"
                 ],
-                "summary": "Update Order",
-                "operationId": "update_order",
+                "summary": "Update Patch Order",
+                "operationId": "update_patch_order",
                 "parameters": [
                     {
                         "type": "string",
@@ -1757,12 +1757,12 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "UpdateOrderRequest",
+                        "description": "UpdatePatchOrderRequest",
                         "name": "order",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UpdateOrder"
+                            "$ref": "#/definitions/models.PatchRequest"
                         }
                     }
                 ],
@@ -2820,6 +2820,18 @@ const docTemplate = `{
         "models.OrderPrimaryKey": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PatchRequest": {
+            "type": "object",
+            "properties": {
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
                 "id": {
                     "type": "string"
                 }

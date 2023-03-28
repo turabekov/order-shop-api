@@ -87,6 +87,14 @@ definitions:
       id:
         type: string
     type: object
+  models.PatchRequest:
+    properties:
+      fields:
+        additionalProperties: true
+        type: object
+      id:
+        type: string
+    type: object
   models.ProductPrimaryKey:
     properties:
       id:
@@ -1093,20 +1101,20 @@ paths:
     patch:
       consumes:
       - application/json
-      description: Update Order
-      operationId: update_order
+      description: Update Patch Order
+      operationId: update_patch_order
       parameters:
       - description: id
         in: path
         name: id
         required: true
         type: string
-      - description: UpdateOrderRequest
+      - description: UpdatePatchOrderRequest
         in: body
         name: order
         required: true
         schema:
-          $ref: '#/definitions/models.UpdateOrder'
+          $ref: '#/definitions/models.PatchRequest'
       produces:
       - application/json
       responses:
@@ -1137,7 +1145,7 @@ paths:
                 data:
                   type: string
               type: object
-      summary: Update Order
+      summary: Update Patch Order
       tags:
       - Order
     put:

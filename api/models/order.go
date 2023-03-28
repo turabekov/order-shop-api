@@ -17,6 +17,7 @@ type Order struct {
 	UpdatedAt  string `json:"updated_at"`
 }
 
+
 type OrderPrimaryKey struct {
 	Id string `json:"id"`
 }

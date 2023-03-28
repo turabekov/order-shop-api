@@ -3,6 +3,7 @@ package handler
 import (
 	"app/api/models"
 	"app/pkg/helper"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -216,16 +217,16 @@ func (h *Handler) UpdateOrder(c *gin.Context) {
 	h.handlerResponse(c, "update  order", http.StatusAccepted, resp)
 }
 
-// Update Order godoc
-// @ID update_order
+// Update Patch Order godoc
+// @ID update_patch_order
 // @Router /order/{id} [PATCH]
-// @Summary Update Order
-// @Description Update Order
+// @Summary Update Patch Order
+// @Description Update Patch Order
 // @Tags Order
 // @Accept json
 // @Produce json
 // @Param id path string true "id"
-// @Param order body models.UpdateOrder true "UpdateOrderRequest"
+// @Param order body models.PatchRequest true "UpdatePatchOrderRequest"
 // @Success 202 {object} Response{data=string} "Success Request"
 // @Response 400 {object} Response{data=string} "Bad Request"
 // @Failure 500 {object} Response{data=string} "Server Error"
@@ -248,7 +249,7 @@ func (h *Handler) UpdatePatchOrder(c *gin.Context) {
 	}
 
 	object.ID = id
-
+	fmt.Println(object.Fields)
 	rowsAffected, err := h.storages.Order().UpdatePatch(&object)
 	if err != nil {
 		h.handlerResponse(c, "storage.order.updatepatch", http.StatusInternalServerError, err.Error())

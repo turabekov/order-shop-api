@@ -1724,7 +1724,7 @@
                 }
             },
             "patch": {
-                "description": "Update Order",
+                "description": "Update Patch Order",
                 "consumes": [
                     "application/json"
                 ],
@@ -1734,8 +1734,8 @@
                 "tags": [
                     "Order"
                 ],
-                "summary": "Update Order",
-                "operationId": "update_order",
+                "summary": "Update Patch Order",
+                "operationId": "update_patch_order",
                 "parameters": [
                     {
                         "type": "string",
@@ -1745,12 +1745,12 @@
                         "required": true
                     },
                     {
-                        "description": "UpdateOrderRequest",
+                        "description": "UpdatePatchOrderRequest",
                         "name": "order",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UpdateOrder"
+                            "$ref": "#/definitions/models.PatchRequest"
                         }
                     }
                 ],
@@ -2808,6 +2808,18 @@
         "models.OrderPrimaryKey": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PatchRequest": {
+            "type": "object",
+            "properties": {
+                "fields": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
                 "id": {
                     "type": "string"
                 }
