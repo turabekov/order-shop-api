@@ -218,7 +218,7 @@ func (h *Handler) UpdateOrder(c *gin.Context) {
 
 // Update Order godoc
 // @ID update_order
-// @Router /order/{id} [PUT]
+// @Router /order/{id} [PATCH]
 // @Summary Update Order
 // @Description Update Order
 // @Tags Order

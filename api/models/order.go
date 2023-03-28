@@ -75,6 +75,6 @@ type GetListOrderRequest struct {
 }
 
 type GetListOrderResponse struct {
-	Count  int      `json:"count"`
-	Orders []*Order `json:"authors"`
+	Count  int              `json:"count"`
+	Orders []*OrderResponse `json:"authors"`
 }
