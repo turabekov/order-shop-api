@@ -1,4 +1,4 @@
-CREATE TABLE "orders" (
+CREATE TABLE IF NOT EXISTS "orders" (
     "id" UUID PRIMARY KEY NOT NULL,
     "name" VARCHAR ,
     "price" NUMERIC CHECK(quantity >= 0) DEFAULT 0,

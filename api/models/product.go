@@ -12,6 +12,15 @@ type ProductPrimaryKey struct {
 	Id string `json:"id"`
 }
 
+type ProductCategory struct {
+	Id        string   `json:"id"`
+	Name      string   `json:"name"`
+	Price     float64  `json:"price"`
+	Category  Category `json:"category"`
+	CreatedAt string   `json:"created_at"`
+	UpdatedAt string   `json:"updated_at"`
+}
+
 type CreateProduct struct {
 	Name       string  `json:"name"`
 	Price      float64 `json:"price"`

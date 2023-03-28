@@ -1,12 +1,16 @@
 package api
 
 import (
+	_ "app/api/docs"
+
 	"app/api/handler"
 	"app/config"
 	"app/pkg/logger"
 	"app/storage"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 func NewApi(r *gin.Engine, cfg *config.Config, store storage.StorageI, logger logger.LoggerI) {
@@ -54,4 +58,7 @@ func NewApi(r *gin.Engine, cfg *config.Config, store storage.StorageI, logger lo
 	r.PUT("/order/:id", handler.UpdateOrder)
 	r.PATCH("/order/:id", handler.UpdateOrder)
 	r.DELETE("/order/:id", handler.DeleteOrder)
+
+	url := ginSwagger.URL("swagger/doc.json") // The url pointing to API definition
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 }

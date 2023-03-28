@@ -64,30 +64,76 @@ func (r *orderRepo) Create(req *models.CreateOrder) (string, error) {
 	return id.String(), nil
 }
 
-func (r *orderRepo) GetByID(req *models.OrderPrimaryKey) (*models.Order, error) {
+// Get By ID Order godoc
+// @ID get_by_id_order
+// @Router /order/{id} [GET]
+// @Summary Get By ID Order
+// @Description Get By ID Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
+func (r *orderRepo) GetByID(req *models.OrderPrimaryKey) (*models.OrderResponse, error) {
 
 	var (
-		query     string
-		order     models.Order
-		courierId sql.NullString
+		query string
+		order models.OrderResponse
+		// courierId sql.NullString
+		parentCategoryId sql.NullString
 	)
 
 	query = `
 		SELECT
-			id, 
-			name, 
-			price,
-			phone_number,
-			latitude,
-			longtitude,
-			user_id,
-			customer_id,
-			courier_id,
-			product_id,
-			quantity,
-			created_at,
-			updated_at
+			orders.id, 
+			orders.name, 
+			orders.price,
+			orders.phone_number,
+			orders.latitude,
+			orders.longtitude,
+
+			users.id,
+			users.name,
+			users.phone_number,
+			users.updated_at,
+			users.created_at,
+
+			customers.id,
+			customers.name,
+			customers.phone,
+			customers.updated_at,
+			customers.created_at,
+
+			couriers.id,
+			couriers.name,
+			couriers.phone_number,
+			couriers.updated_at,
+			couriers.created_at,
+
+			products.id,
+			products.name,
+			products.Price,
+
+			categories.id,
+			categories.name,
+			categories.parent_id,
+			categories.updated_at,
+			categories.created_at,
+
+			products.updated_at,
+			products.created_at,,
+
+			orders.quantity,
+			orders.created_at,
+			orders.updated_at
 		FROM orders
+		JOIN users ON orders.user_id = users.id
+		JOIN customers ON orders.customer_id = customers.id
+		JOIN couriers ON orders.courier_id = couriers.id
+		JOIN products ON orders.product_id = products.id
+		JOIN categories ON products.category_id = categories.id
 		WHERE id = $1
 	`
 
@@ -98,10 +144,39 @@ func (r *orderRepo) GetByID(req *models.OrderPrimaryKey) (*models.Order, error) 
 		&order.PhoneNumber,
 		&order.Latitude,
 		&order.Longtitude,
-		&order.UserId,
-		&order.CustomerId,
-		&courierId,
-		&order.ProductId,
+
+		&order.User.Id,
+		&order.User.Name,
+		&order.User.PhoneNumber,
+		&order.User.UpdatedAt,
+		&order.User.CreatedAt,
+
+		&order.Customer.Id,
+		&order.Customer.Name,
+		&order.Customer.Phone,
+		&order.Customer.UpdatedAt,
+		&order.Customer.CreatedAt,
+
+		&order.Courier.Id,
+		&order.Courier.Name,
+		&order.Courier.PhoneNumber,
+		&order.Courier.UpdatedAt,
+		&order.Courier.CreatedAt,
+
+		&order.Product.Id,
+		&order.Product.Name,
+		&order.Product.Price,
+
+		&order.Product.Category.Id,
+		&order.Product.Category.Name,
+		&parentCategoryId,
+		&order.Product.Category.ParentId,
+		&order.Product.Category.UpdatedAt,
+		&order.Product.Category.CreatedAt,
+
+		&order.Product.UpdatedAt,
+		&order.Product.CreatedAt,
+
 		&order.Quantity,
 		&order.CreatedAt,
 		&order.UpdatedAt,
@@ -109,7 +184,8 @@ func (r *orderRepo) GetByID(req *models.OrderPrimaryKey) (*models.Order, error) 
 	if err != nil {
 		return nil, err
 	}
-	order.CourierId = courierId.String
+	// order.CourierId = courierId.String
+	order.Product.Category.ParentId = parentCategoryId.String
 
 	return &order, nil
 }

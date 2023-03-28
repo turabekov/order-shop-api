@@ -1,7 +1,7 @@
-CREATE TABLE "categories" (
+CREATE TABLE IF NOT EXISTS "customers" (
     "id" UUID PRIMARY KEY NOT NULL,
-    "name" VARCHAR ,
-    "parent_id" UUID REFERENCES categories(id) DEFAULT NULL,
+    "name" VARCHAR, 
+    "phone" VARCHAR,
     "updated_at" TIMESTAMP,
     "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

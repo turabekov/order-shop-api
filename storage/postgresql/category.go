@@ -23,10 +23,12 @@ func (r *categoryRepo) Create(req *models.CreateCategory) (string, error) {
 		query    string
 		id       = uuid.New()
 		parentId string
+		val      string
 	)
 
 	if len(req.ParentId) > 0 {
-		parentId = "parent_id" + req.ParentId + ", "
+		parentId = "parent_id, "
+		val = "'" + req.ParentId + "', "
 	}
 
 	query = `
@@ -36,8 +38,9 @@ func (r *categoryRepo) Create(req *models.CreateCategory) (string, error) {
 	` + parentId + ` 
 		updated_at
 	)
-	VALUES ($1, $2, now())`
+	VALUES ($1, $2, ` + val + `	now())`
 
+	fmt.Println(query)
 	_, err := r.db.Exec(query,
 		id.String(),
 		req.Name,
@@ -188,6 +191,19 @@ func (r *categoryRepo) Delete(req *models.CategoryPrimaryKey) (int64, error) {
 		FROM categories
 		WHERE id = $1
 	`
+
+	query2 := `
+		UPDATE 
+		categories
+		SET
+		parent_id = NULL
+		WHERE parent_id = $1
+	`
+
+	_, err := r.db.Exec(query2, req.Id)
+	if err != nil {
+		return 0, err
+	}
 
 	result, err := r.db.Exec(query, req.Id)
 	if err != nil {

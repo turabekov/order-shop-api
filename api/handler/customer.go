@@ -8,6 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Create Customer godoc
+// @ID create_customer
+// @Router /customer [POST]
+// @Summary Create Customer
+// @Description Create Customer
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customer body models.CreateCustomer true "CreateCustomerRequest"
+// @Success 201 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) CreateCustomer(c *gin.Context) {
 
 	var createCustomer models.CreateCustomer
@@ -33,6 +45,18 @@ func (h *Handler) CreateCustomer(c *gin.Context) {
 	h.handlerResponse(c, "create customer", http.StatusCreated, resp)
 }
 
+// Get By ID Customer godoc
+// @ID get_by_id_customer
+// @Router /customer/{id} [GET]
+// @Summary Get By ID Customer
+// @Description Get By ID Customer
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetByIdCustomer(c *gin.Context) {
 
 	id := c.Param("id")
@@ -51,6 +75,20 @@ func (h *Handler) GetByIdCustomer(c *gin.Context) {
 	h.handlerResponse(c, "get customer by id", http.StatusCreated, resp)
 }
 
+// Get List Customer godoc
+// @ID get_list_customer
+// @Router /customer [GET]
+// @Summary Get List Customer
+// @Description Get List Customer
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param offset query string false "offset"
+// @Param limit query string false "limit"
+// @Param search query string false "search"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetListCustomer(c *gin.Context) {
 
 	offset, err := h.getOffsetQuery(c.Query("offset"))
@@ -78,6 +116,19 @@ func (h *Handler) GetListCustomer(c *gin.Context) {
 	h.handlerResponse(c, "get list customer response", http.StatusOK, resp)
 }
 
+// Update Customer godoc
+// @ID update_customer
+// @Router /customer/{id} [PUT]
+// @Summary Update Customer
+// @Description Update Customer
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param customer body models.UpdateCustomer true "UpdateCustomerRequest"
+// @Success 202 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) UpdateCustomer(c *gin.Context) {
 
 	var updateCustomer models.UpdateCustomer
@@ -117,6 +168,19 @@ func (h *Handler) UpdateCustomer(c *gin.Context) {
 	h.handlerResponse(c, "update customer", http.StatusAccepted, resp)
 }
 
+// DELETE Customer godoc
+// @ID delete_customer
+// @Router /customer/{id} [DELETE]
+// @Summary Delete Customer
+// @Description Delete Customer
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param customer body models.CustomerPrimaryKey true "DeleteCustomerRequest"
+// @Success 204 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) DeleteCustomer(c *gin.Context) {
 
 	id := c.Param("id")

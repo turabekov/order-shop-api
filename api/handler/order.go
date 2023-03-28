@@ -8,6 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Create Order godoc
+// @ID create_order
+// @Router /order [POST]
+// @Summary Create Order
+// @Description Create Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param order body models.CreateOrder true "CreateOrderRequest"
+// @Success 201 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) CreateOrder(c *gin.Context) {
 
 	var createOrder models.CreateOrder
@@ -57,6 +69,18 @@ func (h *Handler) CreateOrder(c *gin.Context) {
 	h.handlerResponse(c, "create order", http.StatusCreated, resp)
 }
 
+// Get By ID Order godoc
+// @ID get_by_id_order
+// @Router /order/{id} [GET]
+// @Summary Get By ID Order
+// @Description Get By ID Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetByIdOrder(c *gin.Context) {
 
 	id := c.Param("id")
@@ -75,6 +99,20 @@ func (h *Handler) GetByIdOrder(c *gin.Context) {
 	h.handlerResponse(c, "get order by id", http.StatusCreated, resp)
 }
 
+// Get List Order godoc
+// @ID get_list_order
+// @Router /order [GET]
+// @Summary Get List Order
+// @Description Get List Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param offset query string false "offset"
+// @Param limit query string false "limit"
+// @Param search query string false "search"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetListOrder(c *gin.Context) {
 
 	offset, err := h.getOffsetQuery(c.Query("offset"))
@@ -102,6 +140,19 @@ func (h *Handler) GetListOrder(c *gin.Context) {
 	h.handlerResponse(c, "get list order response", http.StatusOK, resp)
 }
 
+// Update Order godoc
+// @ID update_order
+// @Router /order/{id} [PUT]
+// @Summary Update Order
+// @Description Update Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param order body models.UpdateOrder true "UpdateOrderRequest"
+// @Success 202 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) UpdateOrder(c *gin.Context) {
 
 	var updateOrder models.UpdateOrder
@@ -165,6 +216,19 @@ func (h *Handler) UpdateOrder(c *gin.Context) {
 	h.handlerResponse(c, "update  order", http.StatusAccepted, resp)
 }
 
+// Update Order godoc
+// @ID update_order
+// @Router /order/{id} [PUT]
+// @Summary Update Order
+// @Description Update Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param order body models.UpdateOrder true "UpdateOrderRequest"
+// @Success 202 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 // ------------PATCH----------------
 func (h *Handler) UpdatePatchOrder(c *gin.Context) {
 
@@ -205,6 +269,19 @@ func (h *Handler) UpdatePatchOrder(c *gin.Context) {
 	h.handlerResponse(c, "update patch order", http.StatusAccepted, resp)
 }
 
+// DELETE Order godoc
+// @ID delete_order
+// @Router /order/{id} [DELETE]
+// @Summary Delete Order
+// @Description Delete Order
+// @Tags Order
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param order body models.OrderPrimaryKey true "DeleteOrderRequest"
+// @Success 204 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) DeleteOrder(c *gin.Context) {
 
 	id := c.Param("id")

@@ -8,6 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Create Courier godoc
+// @ID create_courier
+// @Router /courier [POST]
+// @Summary Create Courier
+// @Description Create Courier
+// @Tags Courier
+// @Accept json
+// @Produce json
+// @Param courier body models.CreateCourier true "CreateCourierRequest"
+// @Success 201 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) CreateCourier(c *gin.Context) {
 
 	var createCourier models.CreateCourier
@@ -33,6 +45,18 @@ func (h *Handler) CreateCourier(c *gin.Context) {
 	h.handlerResponse(c, "create courier", http.StatusCreated, resp)
 }
 
+// Get By ID Courier godoc
+// @ID get_by_id_courier
+// @Router /courier/{id} [GET]
+// @Summary Get By ID Courier
+// @Description Get By ID Courier
+// @Tags Courier
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetByIdCourier(c *gin.Context) {
 
 	id := c.Param("id")
@@ -51,6 +75,20 @@ func (h *Handler) GetByIdCourier(c *gin.Context) {
 	h.handlerResponse(c, "get courier by id", http.StatusCreated, resp)
 }
 
+// Get List Courier godoc
+// @ID get_list_courier
+// @Router /courier [GET]
+// @Summary Get List Courier
+// @Description Get List Courier
+// @Tags Courier
+// @Accept json
+// @Produce json
+// @Param offset query string false "offset"
+// @Param limit query string false "limit"
+// @Param search query string false "search"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetListCourier(c *gin.Context) {
 
 	offset, err := h.getOffsetQuery(c.Query("offset"))
@@ -78,6 +116,19 @@ func (h *Handler) GetListCourier(c *gin.Context) {
 	h.handlerResponse(c, "get list courier response", http.StatusOK, resp)
 }
 
+// Update Courier godoc
+// @ID update_courier
+// @Router /courier/{id} [PUT]
+// @Summary Update Courier
+// @Description Update Courier
+// @Tags Courier
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param courier body models.UpdateCourier true "UpdateCourierRequest"
+// @Success 202 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) UpdateCourier(c *gin.Context) {
 
 	var updateCourier models.UpdateCourier
@@ -117,6 +168,19 @@ func (h *Handler) UpdateCourier(c *gin.Context) {
 	h.handlerResponse(c, "update courier", http.StatusAccepted, resp)
 }
 
+// DELETE Courier godoc
+// @ID delete_courier
+// @Router /courier/{id} [DELETE]
+// @Summary Delete Courier
+// @Description Delete Courier
+// @Tags Courier
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param courier body models.CourierPrimaryKey true "DeleteCourierRequest"
+// @Success 204 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) DeleteCourier(c *gin.Context) {
 
 	id := c.Param("id")

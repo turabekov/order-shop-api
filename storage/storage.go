@@ -54,7 +54,7 @@ type CategoryRepoI interface {
 
 type OrderRepoI interface {
 	Create(*models.CreateOrder) (string, error)
-	GetByID(*models.OrderPrimaryKey) (*models.Order, error)
+	GetByID(*models.OrderPrimaryKey) (*models.OrderResponse, error)
 	GetList(*models.GetListOrderRequest) (*models.GetListOrderResponse, error)
 	Update(req *models.UpdateOrder) (int64, error)
 	UpdatePatch(req *models.PatchRequest) (int64, error)

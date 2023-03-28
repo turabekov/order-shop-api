@@ -8,6 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Create Category godoc
+// @ID create_category
+// @Router /category [POST]
+// @Summary Create Category
+// @Description Create Category
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param category body models.CreateCategory true "CreateCategoryRequest"
+// @Success 201 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) CreateCategory(c *gin.Context) {
 
 	var createCategory models.CreateCategory
@@ -16,6 +28,15 @@ func (h *Handler) CreateCategory(c *gin.Context) {
 	if err != nil {
 		h.handlerResponse(c, "create category", http.StatusBadRequest, err.Error())
 		return
+	}
+
+	if len(createCategory.ParentId) <= 0 {
+		_, err := h.storages.Category().GetByID(&models.CategoryPrimaryKey{Id: createCategory.ParentId})
+		if err != nil {
+			h.handlerResponse(c, "storage.category.getByID", http.StatusNotFound, "category not found")
+			return
+		}
+
 	}
 
 	id, err := h.storages.Category().Create(&createCategory)
@@ -33,6 +54,18 @@ func (h *Handler) CreateCategory(c *gin.Context) {
 	h.handlerResponse(c, "create category", http.StatusCreated, resp)
 }
 
+// Get By ID Category godoc
+// @ID get_by_id_category
+// @Router /category/{id} [GET]
+// @Summary Get By ID Category
+// @Description Get By ID Category
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetByIdCategory(c *gin.Context) {
 
 	id := c.Param("id")
@@ -51,6 +84,20 @@ func (h *Handler) GetByIdCategory(c *gin.Context) {
 	h.handlerResponse(c, "get category by id", http.StatusCreated, resp)
 }
 
+// Get List Category godoc
+// @ID get_list_category
+// @Router /category [GET]
+// @Summary Get List Category
+// @Description Get List Category
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param offset query string false "offset"
+// @Param limit query string false "limit"
+// @Param search query string false "search"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetListCategory(c *gin.Context) {
 
 	offset, err := h.getOffsetQuery(c.Query("offset"))
@@ -78,6 +125,19 @@ func (h *Handler) GetListCategory(c *gin.Context) {
 	h.handlerResponse(c, "get list category response", http.StatusOK, resp)
 }
 
+// Update Category godoc
+// @ID update_category
+// @Router /category/{id} [PUT]
+// @Summary Update Category
+// @Description Update Category
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param category body models.UpdateCategory true "UpdateCategoryRequest"
+// @Success 202 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) UpdateCategory(c *gin.Context) {
 
 	var updateCategory models.UpdateCategory
@@ -117,6 +177,19 @@ func (h *Handler) UpdateCategory(c *gin.Context) {
 	h.handlerResponse(c, "update category", http.StatusAccepted, resp)
 }
 
+// DELETE Category godoc
+// @ID delete_category
+// @Router /category/{id} [DELETE]
+// @Summary Delete Category
+// @Description Delete Category
+// @Tags Category
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param category body models.CategoryPrimaryKey true "DeleteCategoryRequest"
+// @Success 204 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) DeleteCategory(c *gin.Context) {
 
 	id := c.Param("id")

@@ -1,4 +1,4 @@
-CREATE TABLE "products" (
+CREATE TABLE IF NOT EXISTS "products" (
     "id" UUID PRIMARY KEY NOT NULL,
     "name" VARCHAR, 
     "price" NUMERIC CHECK(price >= 0) DEFAULT 0,

@@ -8,6 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Create User godoc
+// @ID create_user
+// @Router /user [POST]
+// @Summary Create User
+// @Description Create User
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param user body models.CreateUser true "CreateUserRequest"
+// @Success 201 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) CreateUser(c *gin.Context) {
 
 	var createUser models.CreateUser
@@ -33,6 +45,18 @@ func (h *Handler) CreateUser(c *gin.Context) {
 	h.handlerResponse(c, "create user", http.StatusCreated, resp)
 }
 
+// Get By ID User godoc
+// @ID get_by_id_user
+// @Router /user/{id} [GET]
+// @Summary Get By ID User
+// @Description Get By ID User
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetByIdUser(c *gin.Context) {
 
 	id := c.Param("id")
@@ -51,6 +75,20 @@ func (h *Handler) GetByIdUser(c *gin.Context) {
 	h.handlerResponse(c, "get user by id", http.StatusCreated, resp)
 }
 
+// Get List User godoc
+// @ID get_list_user
+// @Router /user [GET]
+// @Summary Get List User
+// @Description Get List User
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param offset query string false "offset"
+// @Param limit query string false "limit"
+// @Param search query string false "search"
+// @Success 200 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) GetListUser(c *gin.Context) {
 
 	offset, err := h.getOffsetQuery(c.Query("offset"))
@@ -78,6 +116,19 @@ func (h *Handler) GetListUser(c *gin.Context) {
 	h.handlerResponse(c, "get list user response", http.StatusOK, resp)
 }
 
+// Update User godoc
+// @ID update_user
+// @Router /user/{id} [PUT]
+// @Summary Update User
+// @Description Update User
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param user body models.UpdateUser true "UpdateUserRequest"
+// @Success 202 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) UpdateUser(c *gin.Context) {
 
 	var updateUser models.UpdateUser
@@ -117,6 +168,19 @@ func (h *Handler) UpdateUser(c *gin.Context) {
 	h.handlerResponse(c, "update user", http.StatusAccepted, resp)
 }
 
+// DELETE User godoc
+// @ID delete_user
+// @Router /user/{id} [DELETE]
+// @Summary Delete User
+// @Description Delete User
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param id path string true "id"
+// @Param user body models.UserPrimaryKey true "DeleteUserRequest"
+// @Success 204 {object} Response{data=string} "Success Request"
+// @Response 400 {object} Response{data=string} "Bad Request"
+// @Failure 500 {object} Response{data=string} "Server Error"
 func (h *Handler) DeleteUser(c *gin.Context) {
 
 	id := c.Param("id")
